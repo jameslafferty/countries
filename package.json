@@ -1,0 +1,35 @@
+{
+  "name": "countries",
+  "description": "A utility for working with countries.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jameslafferty/countries",
+  "author": {
+    "name": "jameslafferty",
+    "email": "james@nearlysensical.com",
+    "url": "https://github.com/jameslafferty"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jameslafferty/countries.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jameslafferty/countries/issues"
+  },
+  "licenses": [
+    {
+      "type": "GPL",
+      "url": "https://github.com/jameslafferty/countries/blob/master/LICENSE-GPL"
+    }
+  ],
+  "main": "lib/countries",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.11"
+  },
+  "keywords": []
+}
