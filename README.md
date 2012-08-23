@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jameslafferty/countries.png)](http://travis-ci.org/jameslafferty/countries)
 # countries
 
 A utility for working with countries.
