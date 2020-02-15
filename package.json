@@ -15,12 +15,7 @@
   "bugs": {
     "url": "https://github.com/jameslafferty/countries/issues"
   },
-  "licenses": [
-    {
-      "type": "GPL",
-      "url": "https://github.com/jameslafferty/countries/blob/master/LICENSE-GPL"
-    }
-  ],
+  "license": "MIT",
   "main": "lib/countries",
   "engines": {
     "node": ">= 0.6.0"
