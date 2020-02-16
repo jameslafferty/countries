@@ -1,3 +1,8 @@
 {
-  "extends": "react-app"
+  "extends": [
+    "react-app",
+    "jsx-a11y/recommended",
+    "prettier",
+    "prettier/react"
+  ]
 }
