@@ -1,7 +1,7 @@
 {
   "name": "countries",
   "description": "A utility for working with countries.",
-  "version": "0.2.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/jameslafferty/countries",
   "author": {
     "name": "jameslafferty",
@@ -20,7 +20,8 @@
   "module": "dist/esm/index.js",
   "types": "dist/index",
   "files": [
-    "dist/*"
+    "dist/*",
+    "README.md"
   ],
   "scripts": {
     "prebuild": "rimraf dist && yarn test:cicd",
