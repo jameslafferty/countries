@@ -1,3 +1,8 @@
-export const getAbbr = (country: string): string => {
-  return '';
-};
+import { getAbbreviation } from './getAbbreviation';
+
+/**
+ * Aliases getAbbreviation
+ * 
+ * @param country 
+ */
+export const getAbbr = (country: string) => getAbbreviation(country);
