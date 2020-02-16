@@ -21,7 +21,7 @@
     "node": ">= 0.6.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "react-scripts test"
   },
   "devDependencies": {
     "react-scripts": "^3.4.0",
