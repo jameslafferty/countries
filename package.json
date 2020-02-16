@@ -1,7 +1,7 @@
 {
   "name": "countries",
   "description": "A utility for working with countries.",
-  "version": "0.1.0",
+  "version": "1.0.2",
   "homepage": "https://github.com/jameslafferty/countries",
   "author": {
     "name": "jameslafferty",
