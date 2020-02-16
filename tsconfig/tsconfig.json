@@ -9,10 +9,10 @@
     ],
     "allowJs": false,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": false
   },
   "include": [
-    "../**/*.ts"
+    "../src/*.ts"
   ],
   "exclude": [
     "../dist/*",
