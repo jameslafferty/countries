@@ -1,7 +1,7 @@
 {
   "name": "countries",
   "description": "A utility for working with countries.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/jameslafferty/countries",
   "author": {
     "name": "jameslafferty",
@@ -16,15 +16,44 @@
     "url": "https://github.com/jameslafferty/countries/issues"
   },
   "license": "MIT",
-  "main": "lib/countries",
-  "engines": {
-    "node": ">= 0.6.0"
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index",
+  "files": [
+    "dist/*",
+    "README.md"
+  ],
   "scripts": {
-    "test": "grunt test"
+    "prebuild": "rimraf dist && yarn test:cicd",
+    "build:cjs": "tsc -p ./tsconfig/tsconfig.cjs.json",
+    "build:esm": "tsc -p ./tsconfig/tsconfig.esm.json",
+    "build:declaration": "tsc -p ./tsconfig/tsconfig.declaration.json --emitDeclarationOnly",
+    "build": "yarn build:cjs && yarn build:esm && yarn build:declaration",
+    "prepare": "yarn build",
+    "test": "react-scripts test --env=jsdom-fourteen",
+    "test:cicd": "cross-env CI=true react-scripts test --env=jsdom-fourteen --coverage"
   },
   "devDependencies": {
-    "grunt": "~0.3.11",
+    "@types/jest": "^25.1.2",
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
+    "babel-eslint": "10.x",
+    "cross-env": "^7.0.0",
+    "eslint": "6.x",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-react-app": "^5.2.0",
+    "eslint-plugin-flowtype": "3.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.x",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "react-scripts": "^3.4.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.7.5",
     "yarn": "^1.22.0"
   },
   "keywords": []
