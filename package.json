@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
+    "@types/node-fetch": "^2.5.4",
     "@typescript-eslint/eslint-plugin": "2.x",
     "@typescript-eslint/parser": "2.x",
     "babel-eslint": "10.x",
@@ -50,6 +51,7 @@
     "eslint-plugin-react-hooks": "1.x",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",
+    "node-fetch": "^2.6.0",
     "prettier": "^1.19.1",
     "react-scripts": "^3.4.0",
     "rimraf": "^3.0.2",
