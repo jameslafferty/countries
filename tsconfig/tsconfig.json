@@ -17,6 +17,9 @@
   "exclude": [
     "../dist/*",
     "../node_module/*",
-    "../src/*.test.ts"
+    "../src/*.test.ts",
+    "../src/*.test.tsx",
+    "../src/*.stories.ts",
+    "../src/*.stories.tsx"
   ]
 }
