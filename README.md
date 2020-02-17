@@ -16,8 +16,12 @@ _(Coming soon)_
 
 
 ## Release History
+1.0.2
+Overhaul to use Typescript, remove grunt and generally modernize.
+
 0.1.1
 Adding IOC codes, thanks to fnogatz
+
 0.1.0
 
 ## License
