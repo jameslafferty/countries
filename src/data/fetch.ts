@@ -48,7 +48,7 @@ interface RestCountry {
   cioc: string;
 }
 
-type MapAny = { [key: string]: any };
+type MapCountry = { [key: string]: RestCountry };
 
 function writeFile(name: string, data: object) {
   fs.writeFile(
@@ -62,8 +62,8 @@ function writeFile(name: string, data: object) {
 fetch("https://restcountries.eu/rest/v2/all").then(async res => {
   let countries: RestCountry[] = await res.json();
   //TODO preprocess
-  let alpha2: MapAny = {};
-  let alpha3: MapAny = {};
+  let alpha2: MapCountry = {};
+  let alpha3: MapCountry = {};
 
   for (let country of countries) {
     alpha2[country.alpha2Code] = country;
