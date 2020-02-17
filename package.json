@@ -24,16 +24,26 @@
     "README.md"
   ],
   "scripts": {
-    "prebuild": "rimraf dist && yarn test:cicd",
     "build:cjs": "tsc -p ./tsconfig/tsconfig.cjs.json",
-    "build:esm": "tsc -p ./tsconfig/tsconfig.esm.json",
     "build:declaration": "tsc -p ./tsconfig/tsconfig.declaration.json --emitDeclarationOnly",
+    "build:esm": "tsc -p ./tsconfig/tsconfig.esm.json",
     "build": "yarn build:cjs && yarn build:esm && yarn build:declaration",
-    "prepare": "yarn build",
+    "prebuild": "rimraf dist && yarn test:cicd",
+    "prepublishOnly": "yarn build:publish",
+    "sb": "sb",
+    "test:cicd": "cross-env CI=true react-scripts test --env=jsdom-fourteen --coverage",
     "test": "react-scripts test --env=jsdom-fourteen",
-    "test:cicd": "cross-env CI=true react-scripts test --env=jsdom-fourteen --coverage"
+    "storybook": "start-storybook -p 9009",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^5.3.13",
+    "@storybook/addon-links": "^5.3.13",
+    "@storybook/addons": "^5.3.13",
+    "@storybook/cli": "^5.3.13",
+    "@storybook/preset-create-react-app": "^1.5.2",
+    "@storybook/react": "^5.3.13",
+    "@testing-library/react": "^9.4.0",
     "@types/jest": "^25.1.2",
     "@typescript-eslint/eslint-plugin": "2.x",
     "@typescript-eslint/parser": "2.x",
@@ -51,10 +61,13 @@
     "husky": "^4.2.3",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-scripts": "^3.4.0",
     "rimraf": "^3.0.2",
     "typescript": "^3.7.5",
     "yarn": "^1.22.0"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {}
 }
