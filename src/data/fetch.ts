@@ -48,6 +48,8 @@ interface RestCountry {
   cioc: string;
 }
 
+type MapAny = { [key: string]: any };
+
 function writeFile(name: string, data: object) {
   fs.writeFile(
     `src/data/${name}.json`,
@@ -60,8 +62,8 @@ function writeFile(name: string, data: object) {
 fetch("https://restcountries.eu/rest/v2/all").then(async res => {
   let countries: RestCountry[] = await res.json();
   //TODO preprocess
-  let alpha2: { [key: string]: any } = {};
-  let alpha3: { [key: string]: any } = {};
+  let alpha2: MapAny = {};
+  let alpha3: MapAny = {};
 
   for (let country of countries) {
     alpha2[country.alpha2Code] = country;
@@ -69,10 +71,7 @@ fetch("https://restcountries.eu/rest/v2/all").then(async res => {
   }
 
   writeFile("alpha2", alpha2);
-  alpha2 = {};
   writeFile("alpha3", alpha3);
-  alpha3 = {};
-
   //Write original response to data.json file
   writeFile("data", countries);
 });
