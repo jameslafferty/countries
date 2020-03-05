@@ -24,7 +24,7 @@
     "README.md"
   ],
   "scripts": {
-    "build:json": "cross-env find ./src/raw-data/csv -type f -exec ts-node --dir ./scripts processCSV.ts {} +",
+    "build:json": "cross-env find ./raw-data/csv -type f -exec ts-node --dir ./scripts processCSV.ts {} +",
     "build:cjs": "tsc -p ./tsconfig/tsconfig.cjs.json",
     "build:declaration": "tsc -p ./tsconfig/tsconfig.declaration.json --emitDeclarationOnly",
     "build:esm": "tsc -p ./tsconfig/tsconfig.esm.json",

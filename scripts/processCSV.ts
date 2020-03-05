@@ -55,18 +55,30 @@ interface RegionCountry {
   subRegionName: string;
 }
 
-const rawCountryToCountry = (rawCountry: RawCountry): Country => ({
-    intermediateRegionCode: rawCountry['Intermediate Region Code'] || undefined,
-    isDeveloped: rawCountry['Developed / Developing Countries'] === 'Developed',
-    isLDC: rawCountry['Least Developed Countries (LDC)'] === 'x',
-    isLLDC: rawCountry['Land Locked Developing Countries (LLDC)'] === 'x',
-    isoAlpha3: rawCountry['ISO-alpha3 Code'],
-    isSIDS: rawCountry['Small Island Developing States (SIDS)'] === 'x',
-    m49: rawCountry['M49 Code'],
-    name: rawCountry['Country or Area'],
-    regionCode: rawCountry['Region Code'],
-    subRegionCode: rawCountry['Sub-region Code'],
-});
+const rawCountryToCountry = (rawCountry: RawCountry): Country => {
+    const intermediateRegionCode = rawCountry['Intermediate Region Code'] || undefined;
+    const isDeveloped = rawCountry['Developed / Developing Countries'] === 'Developed';
+    const isLDC = rawCountry['Least Developed Countries (LDC)'] === 'x';
+    const isLLDC = rawCountry['Land Locked Developing Countries (LLDC)'] === 'x';
+    const isoAlpha3 = rawCountry['ISO-alpha3 Code'];
+    const isSIDS = rawCountry['Small Island Developing States (SIDS)'] === 'x';
+    const m49 = rawCountry['M49 Code'];
+    const name = rawCountry['Country or Area'];
+    const regionCode = rawCountry['Region Code'];
+    const subRegionCode = rawCountry['Sub-region Code'];
+    return {
+      intermediateRegionCode,
+      isDeveloped,
+      isLDC,
+      isLLDC,
+      isoAlpha3,
+      isSIDS,
+      m49,
+      name,
+      regionCode,
+      subRegionCode,
+    };
+};
 
 const rawCountryToRegionCountry = (rawCountry: RawCountry) => ({
   intermediateRegionCode: rawCountry['Intermediate Region Code'] || undefined,
@@ -105,7 +117,10 @@ const addCountryToRegion = (
 };
 
 files.forEach((file) => {
-  csv().fromFile(file)
+  csv({
+    checkColumn: true,
+  })
+  .fromFile(file)
     .then((json: RawCountry[]) => {
       const newFileName = file
         .replace('UNSD — Methodology-', '')
