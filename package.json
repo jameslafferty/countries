@@ -24,7 +24,7 @@
     "README.md"
   ],
   "scripts": {
-    "build:json": "cross-env find ./src/raw-data/csv -type f -exec ./scripts/processCSV.js {} +",
+    "build:json": "cross-env find ./src/raw-data/csv -type f -exec ts-node --dir ./scripts processCSV.ts {} +",
     "build:cjs": "tsc -p ./tsconfig/tsconfig.cjs.json",
     "build:declaration": "tsc -p ./tsconfig/tsconfig.declaration.json --emitDeclarationOnly",
     "build:esm": "tsc -p ./tsconfig/tsconfig.esm.json",
@@ -64,6 +64,7 @@
     "eslint-plugin-react": "7.x",
     "eslint-plugin-react-hooks": "1.x",
     "husky": "^4.2.3",
+    "immer": "^5.3.6",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
@@ -72,10 +73,10 @@
     "react-scripts": "^3.4.0",
     "regenerator-runtime": "^0.13.3",
     "rimraf": "^3.0.2",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5",
     "webpack": "^3.0.0 || ^4.0.0",
     "yarn": "^1.22.0"
   },
-  "keywords": [],
-  "dependencies": {}
+  "keywords": []
 }
