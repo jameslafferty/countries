@@ -1,9 +1,12 @@
 import { RegionCode } from '../src/types/RegionCode';
 import { SubregionCode } from '../src/types/SubregionCode';
 import { IntermediateRegionCode } from '../src/types/IntermediateRegionCode';
+import { Country } from '../src/types/Country';
+import { Region } from '../src/types/Region';
 
 const csv = require('csvtojson');
 const fs = require('fs');
+const path = require('path');
 const { produce } = require('immer');
 
 const files = [...process.argv].slice(2);
@@ -24,25 +27,6 @@ interface RawCountry {
   'Small Island Developing States (SIDS)': 'x' | '';
   'Sub-region Code': SubregionCode;
   'Sub-region Name': string;
-}
-
-interface Country {
-  intermediateRegionCode?: IntermediateRegionCode;
-  isDeveloped: boolean;
-  isLDC: boolean;
-  isLLDC: boolean;
-  isoAlpha3: string;
-  isSIDS: boolean;
-  m49: string;
-  name: string;
-  regionCode: RegionCode;
-  subRegionCode: SubregionCode;
-}
-
-interface Region {
-  name: string;
-  m49: string;
-  countries: string[];
 }
 
 interface RegionCountry {
@@ -116,33 +100,58 @@ const addCountryToRegion = (
   });
 };
 
+const m49ArrayToM49Dictionary = (m49Array: (Region |  Country)[]) => {
+  const m49Dictionary: Record<string, Region | Country> = {};
+  for (const m49 of m49Array) {
+    if (m49Dictionary[m49.m49] != null) {
+      throw new Error(`${JSON.stringify(m49)} already exists!`);
+    }
+    m49Dictionary[m49.m49] = { ...m49 };
+  }
+  return m49Dictionary;
+};
+
+const getNewFileName = (originalFileName: string, targetFile: string) => originalFileName.replace('UNSD — Methodology-', '')
+  .replace(/csv/g, 'json')
+  .replace('raw-data', 'src/data')
+  .replace('.json', `/${targetFile}.json`);
+
+const writeFile = (originalFileName: string, targetFile: string, data: string) => {
+  const newFileName = getNewFileName(originalFileName, targetFile);
+  const directoryName = path.dirname(newFileName);
+  if (!fs.existsSync(directoryName)) {
+    fs.mkdirSync(directoryName, {
+      recursive: true,
+    });
+  }
+  fs.writeFileSync(newFileName, data);
+}
+
 files.forEach((file) => {
   csv({
     checkColumn: true,
   })
   .fromFile(file)
     .then((json: RawCountry[]) => {
-      const newFileName = file
-        .replace('UNSD — Methodology-', '')
-        .replace(/csv/g, 'json');
-      fs.writeFileSync(newFileName, JSON.stringify(json.map(rawCountryToCountry), null, 2));
-      const regionCountries = json.map(rawCountryToRegionCountry);
-      let intermediateRegions: Region[] = [];
-      let regions: Region[] = [];
-      let subRegions: Region[] = [];
-      for (const country of regionCountries) {
-        intermediateRegions = addCountryToRegion(intermediateRegions, country, 'intermediateRegionCode', 'intermediateRegionName');
-        regions = addCountryToRegion(regions, country, 'regionCode', 'regionName');
-        subRegions = addCountryToRegion(subRegions, country, 'subRegionCode', 'subRegionName');
+      const regionCountriesArray = json.map(rawCountryToRegionCountry);
+      let intermediateRegionsArray: Region[] = [];
+      let regionsArray: Region[] = [];
+      let subRegionsArray: Region[] = [];
+      for (const country of regionCountriesArray) {
+        intermediateRegionsArray = addCountryToRegion(intermediateRegionsArray, country, 'intermediateRegionCode', 'intermediateRegionName');
+        regionsArray = addCountryToRegion(regionsArray, country, 'regionCode', 'regionName');
+        subRegionsArray = addCountryToRegion(subRegionsArray, country, 'subRegionCode', 'subRegionName');
       }
-      const intermediateRegionFileName = file.replace('UNSD — Methodology-', 'intermediate-region-')
-        .replace(/csv/g, 'json');
-      fs.writeFileSync(intermediateRegionFileName, JSON.stringify(intermediateRegions, null, 2));
-      const regionFileName = file.replace('UNSD — Methodology-', 'region-')
-        .replace(/csv/g, 'json');
-      fs.writeFileSync(regionFileName, JSON.stringify(regions, null, 2));
-      const subRegionFileName = file.replace('UNSD — Methodology-', 'sub-region-')
-        .replace(/csv/g, 'json');
-      fs.writeFileSync(subRegionFileName, JSON.stringify(subRegions, null, 2));
+      writeFile(file, 'countries', JSON.stringify(
+        m49ArrayToM49Dictionary(
+          json.map(rawCountryToCountry
+        )
+      ), null, 2));
+      writeFile(file, 'intermediateRegions', JSON.stringify(
+        m49ArrayToM49Dictionary(intermediateRegionsArray), null, 2));
+      writeFile(file, 'regions', JSON.stringify(
+        m49ArrayToM49Dictionary(regionsArray), null, 2));
+      writeFile(file, 'subRegions', JSON.stringify(
+        m49ArrayToM49Dictionary(subRegionsArray), null, 2));
     });
 });
