@@ -1,6 +1,10 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react'
 import { CountriesCheckboxes } from './CountriesCheckboxes';
 
-storiesOf('CountriesCheckboxes', module)
-  .add('basic usage', () => <CountriesCheckboxes />);
+export default {
+  component: CountriesCheckboxes,
+  title: 'Countries Checkboxes',
+};
+
+export const basicUsage =  () => <CountriesCheckboxes />;
+export const localizedUsage = () => <CountriesCheckboxes locale='ar' />;
