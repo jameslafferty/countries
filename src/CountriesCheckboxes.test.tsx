@@ -1,9 +1,13 @@
+import { act, render } from '@testing-library/react';
 import React from 'react';
-import { render } from '@testing-library/react';
 import { CountriesCheckboxes } from './CountriesCheckboxes';
 
-it('renders countries checkboxes', () => {
-  const { getByText } = render(<CountriesCheckboxes />);
-  const checkboxes = getByText(/Hello, checkboxes/i);
-  expect(checkboxes).toBeTruthy();
+it('renders countries checkboxes', async () => {
+  let component;
+  await act(async () => {
+    component = render(<CountriesCheckboxes />);
+  });
+  const { getByText } = component;
+  const checkbox = getByText(/Bulgaria/i);
+  expect(checkbox).toBeTruthy();
 });

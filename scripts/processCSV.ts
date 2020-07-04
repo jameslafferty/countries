@@ -83,7 +83,7 @@ const addCountryToRegion = (
   return produce(draftRegionList, (regionList: Region[]) => {
     const m49 = country[codeKey];
     const name = country[nameKey];
-    if (m49 == null || name == null) {
+    if (m49 == '' || m49 == null || name == '' || name == null) {
       return regionList;
     }
     const region = regionList.find(r => r.m49 === m49);

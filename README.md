@@ -1,9 +1,19 @@
 # countries
 
-A utility for working with countries.
+A utility and user interface library for working with countries.
 
 ## Getting Started
-_(Coming soon)_
+### Installation
+You can install using npm.
+```sh
+npm i countries;
+```
+
+Or you can install using yarn.
+```sh
+yarn add countries
+```
+
 
 ## Documentation
 _(Coming soon)_
@@ -13,7 +23,6 @@ _(Coming soon)_
 
 ## Contributing
 _(Coming soon)_
-
 
 ## Release History
 1.0.2
